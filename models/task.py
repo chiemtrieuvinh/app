@@ -1,12 +1,16 @@
 from pydantic import BaseModel, Field
+from uuid import UUID
 
 
 class TaskModel(BaseModel):
-    id: str
-    email: str = Field(min_length=3)
+    summary: str = Field(min_length=1)
+    description: str = Field(min_length=1)
+    status: str = Field(min_length=1)
+    priority: str = Field(min_length=1)
+
 
 class TaskViewModel(BaseModel):
-    id: str
+    id: UUID
     summary: str
     description: str
     status: str

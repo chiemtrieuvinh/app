@@ -4,7 +4,7 @@ from schemas.user import User, verify_password
 from datetime import datetime, timedelta
 from typing import Optional
 from jose import jwt
-from settings import JWT_SECRET, JWT_ALGORITHM
+from settings import JWT_SECRET_KEY, JWT_ALGORITHM
 from fastapi.security import OAuth2PasswordBearer
 
 
@@ -31,14 +31,12 @@ def create_access_token(user: User, exipres:Optional[timedelta] = None) -> str:
         "email": user.email,
         "is_admin": user.is_admin
     }
-    expires_in = datetime.now() + (exipres if exipres else timedelta(minutes=5))
-    claims.update({"exp": expires_in})
-    return jwt.encode(claims, JWT_SECRET, algorithm=JWT_ALGORITHM)
+    return jwt.encode(claims, JWT_SECRET_KEY, algorithm=JWT_ALGORITHM)
 
 
 def token_interceptor(token: str = Depends(oa2_bearer)) -> dict:
     try:
-        payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_ALGORITHM])
+        payload = jwt.decode(token, JWT_SECRET_KEY, algorithms=[JWT_ALGORITHM])
         user = User()
         user.username = payload.get("sub")
         user.id = payload.get("id")

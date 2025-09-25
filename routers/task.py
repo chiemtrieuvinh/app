@@ -21,15 +21,15 @@ async def get_tasks(
     db: Session = Depends(get_db_context)):
     if not user.is_admin:
         raise HTTPException(status_code=403, detail="Not authorized to access this resource")
-    # query = db.query(task.Task).options(joinedload(task.Task.user, innerjoin=True), joinedload(task.Task.company, innerjoin=True))
     return db.query(task.Task).all()
 
 # tuong tu cho post authenticate this function roi dung 
 @router.post("", status_code=status.HTTP_201_CREATED)
-async def create_task(request: TaskModel, db: Session = Depends(get_db_context)) -> None:
-    task = task.Task(**request.model_dump())
-    task.created_at = datetime.now()
-    db.add(task)
+async def create_task(
+    request: TaskModel,     
+    user: User = Depends(token_interceptor),
+    db: Session = Depends(get_db_context)) -> None:
+    new_task = task.Task(**request.model_dump())
+    db.add(new_task)
     db.commit()
-    db.refresh(task)
-    return task
+    return {"message": "New task created"}

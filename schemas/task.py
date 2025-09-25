@@ -10,7 +10,7 @@ class Task(Base):
     summary = Column(String, unique=True, nullable=False)
     description = Column(String, nullable=True)
     status = Column(String, nullable=True)
-    priority = Column(Integer, nullable=True)
+    priority = Column(String, nullable=True)
     user_id = Column(UUID(as_uuid=True), ForeignKey("users.id"))
 
     user = relationship("User", back_populates="tasks")

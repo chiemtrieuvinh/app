@@ -1,12 +1,15 @@
 from pydantic import BaseModel, Field
+from uuid import UUID
 
 
 class CompanyModel(BaseModel):
-    id: str
-    email: str = Field(min_length=3)
+    name: str = Field(min_length=1)
+    description: str = Field(min_length=1)
+    mode: str = Field(min_length=1)
+    rating: str = Field(min_length=1)
 
 class CompanyViewModel(BaseModel):
-    id: str
+    id: UUID
     name: str
     description: str
     mode: str

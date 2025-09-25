@@ -18,6 +18,6 @@ ADMIN_DEFAULT_PASSWORD = os.environ.get("DEFAULT_PASSWORD")
 
 
 #JWT setting
-JWT_SECRET = os.environ.get("JWT_SECRET")
+JWT_SECRET_KEY = os.environ.get("JWT_SECRET_KEY")
 JWT_ALGORITHM = os.environ.get("JWT_ALGORITHM")
 

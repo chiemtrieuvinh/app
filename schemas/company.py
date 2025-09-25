@@ -11,6 +11,6 @@ class Company(Base):
     name = Column(String, unique=True, nullable=False)
     description = Column(String, nullable=True)
     mode = Column(String, nullable=True)
-    rating = Column(Integer, nullable=True)
+    rating = Column(String, nullable=True)
 
     users = relationship("User", back_populates="company")
