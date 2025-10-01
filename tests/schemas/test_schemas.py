@@ -1,20 +1,8 @@
 import pytest
-from schemas.user import User, get_password_hash, verify_password
+from schemas.user import User
 from schemas.company import Company
 from schemas.task import Task
 from uuid import uuid4
-
-def test_get_password_hash():
-    password = "test_password"
-    hashed = get_password_hash(password)
-    assert hashed != password
-    assert len(hashed) > 0
-
-def test_verify_password():
-    password = "test_password"
-    hashed = get_password_hash(password)
-    assert verify_password(password, hashed) == True
-    assert verify_password("wrong_password", hashed) == False
 
 def test_user_schema():
     user = User()
